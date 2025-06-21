@@ -51,6 +51,9 @@ static int do_pci_enable_device(struct pci_dev *dev, int bars)
 	 *
 	 * for PCIe devices, this value represents a virtual pin (emulated 
 	 * via message-based interrupts)
+	 *
+	 * for INTx interrupts, mapping relationships need to be configured in the device tree.
+	 * for MSI and MSI-X interrupt, mapping with the ITS need to be configured
 	 */
 	pci_read_config_byte(dev, PCI_INTERRUPT_PIN, &pin);
 	/*
