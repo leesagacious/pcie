@@ -1,0 +1,13 @@
+
+
+pcie3x4:pcie@fe150000 {
+
+
+	pcie3x4_intc: legcy-interrupt-controller {
+		interrupt-controller;
+		#address-cells = <0>;
+		#interrupt-cells = <1>;
+		interrupt-parent = <&gic>;
+		interrupts = <GIC_SPI 260 IRQ_TYPE_EDGE_RISING>;
+	};
+};
