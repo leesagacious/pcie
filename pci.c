@@ -72,6 +72,9 @@ static int do_pci_enable_device(struct pci_dev *dev, int bars)
 		 */
 		pci_read_config_word(dev, PCI_COMMAND, &cmd);
 		if (cmd & PCI_COMMAND_INTX_DISABLE)
+			/*
+			 * To clear the INTx disable flag
+			 */
 			pci_write_config_word(dev, PCI_COMMAND,
 					cmd & ~PCI_COMMAND_INTX_DISABLE);
 	}
