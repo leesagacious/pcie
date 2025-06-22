@@ -1,5 +1,10 @@
 
-
+/*
+ * PCIe 3x4 node is used to describe the hardware configuration of 
+   a PCIe 3.0x4 interface controller, Define the register addresses, 
+   interrupt mapping, power management, and pin control properties of 
+   the controller
+ */
 pcie3x4:pcie@fe150000 {
 
 
