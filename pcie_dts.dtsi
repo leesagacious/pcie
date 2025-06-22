@@ -7,8 +7,32 @@
  */
 pcie3x4:pcie@fe150000 {
 
+	/*
+    	  receive the INTx signals from PCI devices
+          converts legacy PCI interrupts into modern interrupt formats
+  	  forwards the interrupts to the system-level interrupt controller(GIC)
 
+	  +---------------------+     +--------------------+      +-----------------------+
+		| PCIe设备            |     | PCIe主机控制器      |      | 系统中断控制器        |
+		|                     |     | (Root Complex)      |      | (例如GIC)             |
+		|    INTx#信号 -------+---->|                     |      |                       |
+		|                     |     | legacy-interrupt-   |      |                       |
+		+---------------------+     | controller节点      |      |                       |
+				    	    |   - interrupt-      |      |                       |
+				    	    |     controller      |      |                       |
+				    	    |   - #interrupt-     |      |                       |
+				    	    |     cells = <1>     |      |                       |
+				    	    |   - interrupts      |      |                       |
+				    	    |    属性指向GIC       +---->| 对应GIC中断线         |
+				    	    |                     |      |                       |
+				    	    +--------------------+      +-----------------------+
+		 */
 	pcie3x4_intc: legcy-interrupt-controller {
+		/*
+                  this is an empty property used to identify the node as an interrupt controller.
+		  it indicates that the node is responseible for managing the routing and handling
+ 		  of  interrupt requests.
+                 */
 		interrupt-controller;
 		#address-cells = <0>;
 		#interrupt-cells = <1>;
