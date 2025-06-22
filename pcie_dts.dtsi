@@ -37,6 +37,9 @@ pcie3x4:pcie@fe150000 {
 		#address-cells = <0>;
 		#interrupt-cells = <1>;
 		interrupt-parent = <&gic>;
+	       /*
+		 the legacy interrupt of the PCIe controller in RK3588 is fixedly assigned to GIC_SPI 260
+		*/
 		interrupts = <GIC_SPI 260 IRQ_TYPE_EDGE_RISING>;
 	};
 };
