@@ -37,8 +37,10 @@ pcie3x4:pcie@fe150000 {
 		#address-cells = <0>;
 		#interrupt-cells = <1>;
 		interrupt-parent = <&gic>;
-	       /*
+		/*
 		 the legacy interrupt of the PCIe controller in RK3588 is fixedly assigned to GIC_SPI 260
+		 The output (logical) interrupt lines of the pcie3x4_intc (RK3588 PCIe controller's 
+		 legacy interrupt controller) are physically hardwired to interrupt line SPI 260 of the ARM GIC (Generic Interrupt Controller).
 		*/
 		interrupts = <GIC_SPI 260 IRQ_TYPE_EDGE_RISING>;
 	};
