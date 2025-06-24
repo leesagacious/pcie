@@ -16,6 +16,12 @@ vcc3v3_pcie30: vcc3v3-pcie30 {
  	 * the regulator's enable status is controlled via GPIO. 3c3 115
 	 */
 	gpios = <&gpio3 RK_PC3 GPIO_ACTIVE_HIGH>;
+	/*
+	   after enabling the gpio. the system needs to wait for 5ms before detecting the output.
+	   ensuring the voltage is stable before it is used by the PCIe device.
+	   this accounts for the rise time of the power circuit and avoids initialization failures
+	   caused by unstable voltage
+         */
 	startup-delay-us = <5000>;
 	vin-supply = <&vcc12v_dcin>;
 };
