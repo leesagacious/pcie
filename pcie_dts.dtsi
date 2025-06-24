@@ -1,7 +1,24 @@
 /*
   this node define a fixed voltage regulator providing 3.3V power
   for PCIe 3.0 interface
- */
+
+  after enabling this regulator, all PCIe devices connected to this power
+  domain will receive 3.3v power simultaneously
+
+	  ┌─────────────┐      ┌─────────────┐
+	│ PCIe Slot 1  │      │ PCIe SSD     │
+	│ (3.3V)       │◄────┤ (3.3V)       │
+	└─────────────┘      └─────────────┘
+		▲                  ▲
+		│                  │
+	┌───────┴──────────────────┴───────┐
+	│      vcc3v3_pcie30 (3.3V)        │
+	└──────────────────────────────────┘
+			   ▲
+			   │
+		    ┌──────┴──────┐
+		    │ vcc12v_dcin │ (12V)
+*/
 vcc3v3_pcie30: vcc3v3-pcie30 {
 	compatible = "regulator-fixed";
 	regulator-name = "vcc3v3_pcie30";
