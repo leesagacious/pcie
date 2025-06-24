@@ -7,6 +7,10 @@ vcc3v3_pcie30: vcc3v3-pcie30 {
 	regulator-name = "vcc3v3_pcie30";
 	regulator-min-microvolt = <3300000>;
 	regulator-max-microvolt = <3300000>;
+	/*
+         the enable signal is active-high(i.e., the regulator is enabled when the GPIO output
+	 a high level)
+         */
 	enable-active-high;
 	gpios = <&gpio3 RK_PC3 GPIO_ACTIVE_HIGH>;
 	startup-delay-us = <5000>;
