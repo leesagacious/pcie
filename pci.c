@@ -82,7 +82,16 @@ static int do_pci_enable_device(struct pci_dev *dev, int bars)
 	return 0;
 }
 
+static int pci_enable_device_flags(struct pci_dev *dev,
+			unsigned long flags)
+{
+	int err;
 
+	err = do_pci_enable_device(dev, bars);
+	if (err < 0)
+		atomic_dec(&dev->enable_cnt);
+	return ret;
+}	
 
 
 
