@@ -36,8 +36,18 @@ EXPORT_SYMBOL(pci_enable_device_mem);
 
 static int do_pci_enable_device(struct pci_dev *dev, int bars)
 {
+	int err;
 	u16 cmd;
 	u8 pin;
+
+	/*
+	 * transition the device from low-power state (D1-D3hot)
+	 * to full-power state(D0) to ensure subsequent operations
+	 * can access the device registers
+	 */	
+	err = pci_set_power_state(dev, PCI_D0);
+	if (err < 0 && err != -EIO)
+		return err;
 
 	/*
 	 * read the device's PCI_INTERRUPT_PIN register (offset 0x3D)
