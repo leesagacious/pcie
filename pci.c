@@ -32,7 +32,7 @@ int pci_enable_device_mem(struct pci_dev *dev)
 	 */
 	return pci_enable_device_flags(dev, IORESOURCE_MEM);
 }
-
+EXPORT_SYMBOL(pci_enable_device_mem);
 
 static int do_pci_enable_device(struct pci_dev *dev, int bars)
 {
