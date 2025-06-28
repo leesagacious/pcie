@@ -1,6 +1,8 @@
 
 int rockchip_pcie_parse_dt(struct rockchip_pcie *rockchip)
 {
+	int err;
+
 	/*
 	 * obtain the physical base address of the PCIe controller's APB 
 	 * registers and map it to a virtual address accessible by the 
@@ -10,4 +12,8 @@ int rockchip_pcie_parse_dt(struct rockchip_pcie *rockchip)
 		devm_platform_ioremap_resource_byname(pdev, "apb-base");
 	if (IS_ERR(rockchip->apb_base))
 		return PTR_ERR(rockchip->apb_base);
+
+	err = rockchip_pcie_get_phys(rockchip);
+	if (err)
+		return err;
 }
