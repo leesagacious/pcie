@@ -19,7 +19,10 @@ int rockchip_pcie_parse_dt(struct rockchip_pcie *rockchip)
 		devm_platform_ioremap_resource_byname(pdev, "apb-base");
 	if (IS_ERR(rockchip->apb_base))
 		return PTR_ERR(rockchip->apb_base);
-
+	
+	/*
+	 * Acquire physical layer resources for the PCIe controller
+	 */
 	err = rockchip_pcie_get_phys(rockchip);
 	if (err)
 		return err;
