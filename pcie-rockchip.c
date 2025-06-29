@@ -2,9 +2,15 @@
 int rockchip_pcie_get_phys(struct rockchip_pcie *rockchip)
 {
 	struct phy *phy;
-
+	
+	/*
+	 * Retrieve phy by phy identifiler
+	 */
 	phy = devm_phy_get(dev, "pcie-phy");
 	if (!IS_ERR(phy)) {
+		/*
+		 * usb legacy phy
+		 */
 		rockchip->legacy_phy = true;
 		rockchip->phys[0] = phy;
 		dev_warn(dev, "legacy phy model is deprecated!\n");
