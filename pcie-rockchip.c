@@ -1,4 +1,19 @@
 
+int rockchip_pcie_get_phys(struct rockchip_pcie *rockchip)
+{
+	struct phy *phy;
+
+	phy = devm_phy_get(dev, "pcie-phy");
+	if (!IS_ERR(phy)) {
+		rockchip->legacy_phy = true;
+		rockchip->phys[0] = phy;
+		dev_warn(dev, "legacy phy model is deprecated!\n");
+		return 0;
+	}
+
+	return 0;
+}
+
 int rockchip_pcie_parse_dt(struct rockchip_pcie *rockchip)
 {
 	int err;
