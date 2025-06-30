@@ -8,4 +8,13 @@ void __iomem *pci_iomap_range(struct pci_dev *dev,
 	 * get the physical start address of BAR
 	 */
 	resource_size_t start = pci_resource_start(dev, bar);
+	/*
+	 * get the total len of BAR
+	 */
+	resource_size_t len = pci_resource_len(dev, bar);
+	/*
+	 * get the resource type of BAR
+	 */
+	resource_size_t flags = pci_resource_flags(dev, bar);
+
 }	
