@@ -17,4 +17,12 @@ void __iomem *pci_iomap_range(struct pci_dev *dev,
 	 */
 	resource_size_t flags = pci_resource_flags(dev, bar);
 
+	/*
+	 * the physical address stored in the BAR is mapping to
+	 * kernel virtual address
+	 */	
+	if (flags & IORESOURCE_MEM)
+		return ioremap(start, len);
+
+	return NULL;
 }	
