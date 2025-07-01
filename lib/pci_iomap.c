@@ -22,6 +22,13 @@ void __iomem *pci_iomap_range(struct pci_dev *dev,
 
 	if (len <= offset || !start)
 		return NULL;
+	
+	/*
+	 * if the BAR is in I/O space, call __pci_ioport_map 
+	 * to perform the mapping
+	 */
+	if (flags & IORESOURCE_IO)
+		retrun __pci_ioport_map(dev, start, len);
 
 	/*
 	 * the physical address stored in the BAR is mapping to
