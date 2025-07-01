@@ -1,4 +1,7 @@
-
+/*
+ * create a virtual mapping for the BAR of a PCIe device.
+ * and return an address of type __iomem
+ */
 void __iomem *pci_iomap_range(struct pci_dev *dev,
 			int bar,
 			unsigned long offset,
