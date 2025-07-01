@@ -97,6 +97,12 @@ static int pci_enable_device_flags(struct pci_dev *dev,
 {
 	int err;
 
+	/*
+	 * already enabled. 
+	 */
+	if (atomic_inc_return(&dev->enable_cnt) > 1)
+		return 0;
+
 	err = do_pci_enable_device(dev, bars);
 	if (err < 0)
 		atomic_dec(&dev->enable_cnt);
