@@ -30,5 +30,9 @@ void __iomem *pci_iomap_range(struct pci_dev *dev,
 	if (flags & IORESOURCE_MEM)
 		return ioremap(start, len);
 
+	/*
+	 * if the BAR's flags are not I/O or memory,
+	 * return NULL
+	 */
 	return NULL;
 }	
