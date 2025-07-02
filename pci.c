@@ -95,6 +95,7 @@ static int do_pci_enable_device(struct pci_dev *dev, int bars)
 static int pci_enable_device_flags(struct pci_dev *dev,
 			unsigned long flags)
 {
+	struct pci_dev *bridge;
 	int err;
 
 	/*
@@ -102,6 +103,15 @@ static int pci_enable_device_flags(struct pci_dev *dev,
 	 */
 	if (atomic_inc_return(&dev->enable_cnt) > 1)
 		return 0;
+	
+	/*
+	 * before enabling a PCI device, it is essential to ensure 
+	 * that the upstream PCI bridge connected to the device is 
+	 * already active
+	 */
+	bridge = pci_upstream_bridge(dev);
+	if (bridge)
+		pci_enable_bridge(bridge);
 
 	err = do_pci_enable_device(dev, bars);
 	if (err < 0)
