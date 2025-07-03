@@ -1,5 +1,6 @@
 /*
  * read a byte from the configuration space of the PCIe device.
+<<<<<<< HEAD
  *
  * the PCIe specification explicitly states that only the RC has
  * the permission to originate configuration requests. 
@@ -9,6 +10,8 @@
  *
  * Additionally, the routing method for configuration requests must
  * be based on BDF
+=======
+>>>>>>> 93b949a9b2d85e8f205d269ea93b9f6250193293
  */
 int pci_read_config_byte(const struct pci_dev *dev, int where, u8 *val)
 {
