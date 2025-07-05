@@ -51,6 +51,27 @@ vcc3v3_pcie30: vcc3v3-pcie30 {
    the controller
  */
 pcie3x4:pcie@fe150000 {
+
+	/*
+         * define the number of interrupt sources, hardware interrupt numbers,
+	 * interrupt types, and symbolic names for each interrupt source of
+	 * this device
+	 */
+	interrupts = <GIC_SPI 248 IRQ_TYPE_LEVEL_HIGH>,
+	             <GIC_SPI 247 IRQ_TYPE_LEVEL_HIGH>,
+	             <GIC_SPI 246 IRQ_TYPE_LEVEL_HIGH>,
+	             <GIC_SPI 245 IRQ_TYPE_LEVEL_HIGH>,
+	             <GIC_SPI 244 IRQ_TYPE_LEVEL_HIGH>,
+	             <GIC_SPI 243 IRQ_TYPE_LEVEL_HIGH>;
+	/*
+         * sys: system interrupt
+         * pcm: power management controller interrupt
+         * msg: message/data transfer interrupt
+	 * legacy: legacy interrupt
+         * error interrupt
+         */
+	interrupt-names = "sys", "pmc", "msg", "legacy", "err";
+
 	/*
  	 * address mapping
 	 */
