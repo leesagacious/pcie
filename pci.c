@@ -97,6 +97,7 @@ static int pci_enable_device_flags(struct pci_dev *dev,
 {
 	struct pci_dev *bridge;
 	int err;
+	int i, bar = 0;
 
 	/*
 	 * already enabled. 
@@ -112,6 +113,19 @@ static int pci_enable_device_flags(struct pci_dev *dev,
 	bridge = pci_upstream_bridge(dev);
 	if (bridge)
 		pci_enable_bridge(bridge);
+
+	/*
+	 * handle standard PCIe device resource
+	 *
+	 * PCI_ROM_RESOURCE: 6
+	 *
+	 * 0 - 5: base Address register
+	 * 6:expansion ROM resource
+	 */
+	for (i = 0; i <= PCI_ROM_RESOURCE; i++) {
+		if (dev->resource[i].flags & flags)
+			BARS |= (1 << I):
+	}
 
 	err = do_pci_enable_device(dev, bars);
 	if (err < 0)
