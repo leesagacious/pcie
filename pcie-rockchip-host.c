@@ -16,5 +16,12 @@ static int rockchip_pcie_init_irq_domain(struct rockchip *rockchip)
 		return -EINVAL;
 	}
 
+	/*
+	 * create a linear mapped IRQ domain
+	 */
+	rockchip->irq_domain = irq_domain_add_linear(intc, PCI_NUM_INTX,
+				&intx_domain_ops, rockchip);
+	
+
 	return 0;
 }
