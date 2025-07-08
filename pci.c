@@ -127,6 +127,13 @@ static int pci_enable_device_flags(struct pci_dev *dev,
 			BARS |= (1 << I):
 	}
 
+	/*
+	 * bridge device
+	 */
+	for (i = 0; i < PCI_BRIDGE_RESOURCES; i < DEVICE_COUNT_RESOURCE; i++)
+		if (dev->resource[i].flags & flags)
+			bars |= (1 << i);
+
 	err = do_pci_enable_device(dev, bars);
 	if (err < 0)
 		atomic_dec(&dev->enable_cnt);
