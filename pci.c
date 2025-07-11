@@ -49,6 +49,9 @@ static int do_pci_enable_device(struct pci_dev *dev, int bars)
 	if (err < 0 && err != -EIO)
 		return err;
 
+	err = pcibios_enable_device(dev, bars);
+	if (err < 0)
+		return err;
 	/*
 	 * read the device's PCI_INTERRUPT_PIN register (offset 0x3D)
 	 *
