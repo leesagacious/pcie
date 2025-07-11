@@ -48,7 +48,12 @@ static int do_pci_enable_device(struct pci_dev *dev, int bars)
 	err = pci_set_power_state(dev, PCI_D0);
 	if (err < 0 && err != -EIO)
 		return err;
-
+	
+	/*
+	 * enable I/O and memory resources for the PCIe device by
+	 * modifying the Command register in the PCIe configuration
+	 * space
+	 */
 	err = pcibios_enable_device(dev, bars);
 	if (err < 0)
 		return err;
