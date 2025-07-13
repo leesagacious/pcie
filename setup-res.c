@@ -31,6 +31,13 @@ int pci_enable_resources(struct pci_dev *dev, int mask)
 	 * };
 	 */
 	for (i = 0; i < PCI_NUM_RESOURCES; i++) {
-	
+		/*
+		 * each bit in the mask directly corresponds to a 
+		 * resource index
+		 * bit[0] -> BAR0 (index 0)
+		 * bit[1] -> BAR1 (index 1)
+		 */
+		if (!(mask & (1 << i)))
+			continue;	
 	}
 }
