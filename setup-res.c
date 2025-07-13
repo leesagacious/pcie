@@ -18,6 +18,17 @@ int pci_enable_resources(struct pci_dev *dev, int mask)
 	
 	/*
 	 * traverse the resource array of PCIe devices
+	 *
+	 * enum {
+	 *	PCI_BASE_ADDRESS_0 = 0,   // bar0
+	 *	PCI_BASE_ADDRESS_1,	  // bar1
+	 *	PCI_BASE_ADDRESS_2,       // bar2
+	 *	PCI_BASE_ADDRESS_3,	  // bar3
+	 *	PCI_BASE_ADDRESS_4,       // bar4
+	 *	PCI_BASE_ADDRESS_5,	  // bar5
+	 *	PCI_ROM_RESOURCE,	  // ROM
+	 *	PCI_NUM_RESOURCES	  // 7 
+	 * };
 	 */
 	for (i = 0; i < PCI_NUM_RESOURCES; i++) {
 	
