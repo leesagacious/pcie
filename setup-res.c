@@ -15,5 +15,11 @@ int pci_enable_resources(struct pci_dev *dev, int mask)
 	 */
 	pci_read_config_word(dev, PCI_COMMAND, &cmd);
 	old_cmd = cmd;
-
+	
+	/*
+	 * traverse the resource array of PCIe devices
+	 */
+	for (i = 0; i < PCI_NUM_RESOURCES; i++) {
+	
+	}
 }
