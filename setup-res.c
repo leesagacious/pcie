@@ -3,7 +3,9 @@
 int pci_enable_resources(struct pci_dev *dev, int mask)
 {
 	u16 cmd, old_cmd;
-	
+	int i;
+	struct resource *r;
+
 	/*
 	 * read the command register from the PCIe configuration
 	 * space
@@ -38,6 +40,11 @@ int pci_enable_resources(struct pci_dev *dev, int mask)
 		 * bit[1] -> BAR1 (index 1)
 		 */
 		if (!(mask & (1 << i)))
-			continue;	
+			continue;
+		
+		/*
+		 * get a resource from the resource array.
+		 */
+		r = &dev->resource[i];	
 	}
 }
