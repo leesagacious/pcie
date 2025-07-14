@@ -45,6 +45,13 @@ int pci_enable_resources(struct pci_dev *dev, int mask)
 		/*
 		 * get a resource from the resource array.
 		 */
-		r = &dev->resource[i];	
+		r = &dev->resource[i];
+
+		/*
+		 * if the current resource is not memory resource
+		 * or I/O resource, skip it directly
+		 */
+		if (!(r->flags & (IORESOURCE_IO | IORESOURCE_MEM)))
+			continue;	
 	}
 }
