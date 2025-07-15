@@ -1,5 +1,7 @@
 
-
+/*
+ * if the mask = 0xff, then all resources are enabled
+ */
 int pci_enable_resources(struct pci_dev *dev, int mask)
 {
 	u16 cmd, old_cmd;
