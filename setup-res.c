@@ -52,6 +52,14 @@ int pci_enable_resources(struct pci_dev *dev, int mask)
 		 * or I/O resource, skip it directly
 		 */
 		if (!(r->flags & (IORESOURCE_IO | IORESOURCE_MEM)))
+			continue;
+		
+		/*
+		 * if this resource is a ROM resource, and the ROM resource
+		 * is not yet enabled, then processed to the next resource
+		 */
+		if ((i == PCI_ROM_RESOURCE) &&
+			(!(r->flags & IORESOURCE_ROM_ENABLE)))
 			continue;	
 	}
 }
