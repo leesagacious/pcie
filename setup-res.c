@@ -1,6 +1,19 @@
 
 /*
  * if the mask = 0xff, then all resources are enabled
+ *
+ * Enable specified resources (I/O and memory regions) for a PCIe device
+ * @dev: Target PCIe device
+ * @mask: Resource enable bitmask (each bit corresponds to a resource index in 
+ * 				   PCI_NUM_RESOURCES)
+ *
+ * Functionality:
+ * 	1. iterates through the device's resource list and checks if the resources
+ * 	   specified by the mask can be enabled
+ *	2. validates resource validity (allocated,declared, not a ROM or ROM is already
+ *					enabled)
+ *	3. set the I/O or memory enable bit in the PCI command register
+ *	4. update the PCI configuration space (when the command register changes)
  */
 int pci_enable_resources(struct pci_dev *dev, int mask)
 {
