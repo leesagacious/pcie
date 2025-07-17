@@ -75,6 +75,26 @@ int pci_enable_resources(struct pci_dev *dev, int mask)
 		 */
 		if ((i == PCI_ROM_RESOURCE) &&
 			(!(r->flags & IORESOURCE_ROM_ENABLE)))
-			continue;	
+			continue;
+
+		if (r->flags & IORESOURCE_UNSET) {
+			pci_err(dev, "can not enable device: BAR %d %pR not assigned\n",
+				i, r);
+			return -EINVAL;
+		}
+
+		if (!r->parent) {
+			pci_err(dev, "can not enable device: BAR %d %pR not claimed\n",
+				i, r);
+			return -EINVAL;
+		}
+
+		/*
+		 * set the command register according to the resource type
+		 */
+		if (r->flags & IORESOURCE_IO)
+			cmd |= PCI_COMMAND_IO;		// enable I/O space access
+		if (r->flags & IORESOURCE_MEM)
+			cmd |= PCI_COMMAND_MEMORY;	// enable memory space access
 	}
 }
