@@ -76,13 +76,30 @@ int pci_enable_resources(struct pci_dev *dev, int mask)
 		if ((i == PCI_ROM_RESOURCE) &&
 			(!(r->flags & IORESOURCE_ROM_ENABLE)))
 			continue;
-
+		
+		/*
+		 * check whether the resources have been successfully allocated 
+		 * to valid addresses.
+		 * 
+		 * IORESOURCE_UNSET: indicates that the PCI BAR has not yet been
+		 * properly assigned a physical address
+		 *
+		 * if the resource is in the "unset" state, enabling the device may
+		 * lead to accessing an invalid address,triggering a hardware error
+		 */
 		if (r->flags & IORESOURCE_UNSET) {
 			pci_err(dev, "can not enable device: BAR %d %pR not assigned\n",
 				i, r);
 			return -EINVAL;
 		}
-
+		
+		/*
+		 * verify whether the resource has been registered into the system 
+		 * resource tree
+		 *   r->parent: points to the parent resource, indicating that this
+		 *   BAR has been declared and added to the global resource tree 
+		 *   via function such as request_resource()
+		 */
 		if (!r->parent) {
 			pci_err(dev, "can not enable device: BAR %d %pR not claimed\n",
 				i, r);
