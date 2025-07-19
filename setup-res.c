@@ -114,4 +114,15 @@ int pci_enable_resources(struct pci_dev *dev, int mask)
 		if (r->flags & IORESOURCE_MEM)
 			cmd |= PCI_COMMAND_MEMORY;	// enable memory space access
 	}
+
+	/*
+	 * check PCI_COMMAND register if has update
+	 */
+	if (cmd != old_cmd) {
+		pci_info(dev, "enabling device (%04x -> %04x"\n, old_cmd, cmd);
+		/*
+		 * write new config write to PCIe PCI_COMMAND register
+		 */
+		pci_write_config_word(dev, PCI_COMMAND, cmd);
+	}
 }
