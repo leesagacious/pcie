@@ -57,6 +57,12 @@ static int do_pci_enable_device(struct pci_dev *dev, int bars)
 	err = pcibios_enable_device(dev, bars);
 	if (err < 0)
 		return err;
+
+	pci_fixup_device(pci_fixup_enable, dev);
+
+	if (dev->msi_enabled || dev->msix_enabled)
+		return 0;
+
 	/*
 	 * read the device's PCI_INTERRUPT_PIN register (offset 0x3D)
 	 *
