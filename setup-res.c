@@ -125,4 +125,5 @@ int pci_enable_resources(struct pci_dev *dev, int mask)
 		 */
 		pci_write_config_word(dev, PCI_COMMAND, cmd);
 	}
+	return 0;
 }
